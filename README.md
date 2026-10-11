@@ -6,11 +6,11 @@ Talk Manager is a browser dashboard backed by Supabase Auth and Postgres. It doe
 
 1. Create or select a Supabase project.
 2. Apply `supabase/migrations/0001_initial.sql` from the SQL Editor after reviewing it.
-3. Open Talk Manager and enter the project URL and **publishable** key from the Supabase Connect dialog.
+3. Put the project URL and **publishable** key from the Supabase Connect dialog in `config.js` and deploy the updated file. This shares the same project connection with every visitor. Until configured globally, a browser can enter its own connection on the setup screen for private testing.
 4. Sign in with a Supabase Auth account. Configure allowed redirect URLs and email confirmation in Supabase Auth for your deployment domain.
 5. Provision a `server_memberships` row only from a trusted setup flow that verifies the user's Discord identity and permissions. Do not let a browser create its own owner membership.
 
-The project URL and publishable key are saved in the current browser's local storage. A publishable key is intended for client use, but all access still depends on Row Level Security. Never enter or publish a Supabase secret/service-role key in Talk Manager.
+The project URL and publishable key are public client values. All access still depends on Row Level Security. Never enter or publish a Supabase secret/service-role key in Talk Manager.
 
 ## Current live features
 
@@ -29,7 +29,7 @@ GitHub Pages can host the static dashboard, while the Discord bot and scheduled 
 
 ## Configuration
 
-`.env.example` lists the required public and server-only configuration names. The static site currently asks for the project URL and publishable key at runtime; server-only secrets in that template are not read by the browser.
+`config.js` holds the shared browser connection values. `.env.example` lists server-only configuration names for a future bot worker; those secrets are not read by the browser.
 
 ## Project map
 
